@@ -2,6 +2,7 @@
 
 import { useState, useEffect, type ReactNode } from "react"
 import Image from "next/image"
+import { useTheme } from "next-themes"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
@@ -22,16 +23,24 @@ interface OnboardingFlowProps {
 
 export default function OnboardingFlow({ children }: OnboardingFlowProps) {
   const { user, setUser } = useUser()
+  const { theme } = useTheme()
   const [step, setStep] = useState<"city" | "iin" | "complete">("city")
   const [selectedCity, setSelectedCity] = useState("")
   const [iin, setIin] = useState("")
   const [error, setError] = useState("")
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     if (user) {
       setStep("complete")
     }
   }, [user])
+
+  const logoSrc = mounted && theme === "light" ? "/logopvl3white.png" : "/logopvl3.png"
 
   const handleCitySelect = (cityName: string) => {
     setSelectedCity(cityName)
@@ -80,7 +89,7 @@ export default function OnboardingFlow({ children }: OnboardingFlowProps) {
             <Card className="p-8 border">
               <div className="flex flex-col items-center gap-6">
                 <Image
-                  src="/logopvl3.png"
+                  src={logoSrc}
                   alt="Logo"
                   width={48}
                   height={48}

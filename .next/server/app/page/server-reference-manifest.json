@@ -1,0 +1,20 @@
+{
+  "node": {
+    "602b579a280a9842ad9a3850fbcaedfe589ef13e80": {
+      "workers": {
+        "app/page": {
+          "moduleId": 29104,
+          "async": false,
+          "exportedName": "chatWithGemini",
+          "filename": "lib/gemini.ts"
+        }
+      },
+      "layer": {
+        "app/page": "action-browser"
+      },
+      "exportedName": "chatWithGemini",
+      "filename": "lib/gemini.ts"
+    }
+  },
+  "edge": {}
+}

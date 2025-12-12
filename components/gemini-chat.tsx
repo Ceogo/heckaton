@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
+import { useTheme } from "next-themes"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, Send, MapPin, ImageIcon, Loader2 } from "lucide-react"
 import { Button } from "./ui/button"
@@ -39,9 +40,17 @@ export default function GeminiChat({ isOpen, onClose }: GeminiChatProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [showMapSelector, setShowMapSelector] = useState(false)
   const [requestData, setRequestData] = useState<RequestData>({})
+  const [mounted, setMounted] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
   const { addRequest } = useRequests()
   const { user } = useUser()
+  const { theme } = useTheme()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const logoSrc = mounted && theme === "light" ? "/logopvl3white.png" : "/logopvl3.png"
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
@@ -235,7 +244,7 @@ export default function GeminiChat({ isOpen, onClose }: GeminiChatProps) {
               <div className="flex items-center justify-between p-4 border-b border-border dark:border-border/50">
                 <div className="flex items-center gap-3">
                   <Image
-                    src="/logopvl3.png"
+                    src={logoSrc}
                     alt="Logo"
                     width={28}
                     height={28}

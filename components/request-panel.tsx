@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
+import { useTheme } from "next-themes"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight, Search } from "lucide-react"
 import { Button } from "./ui/button"
@@ -19,9 +20,17 @@ interface RequestPanelProps {
 
 export default function RequestPanel({ isOpen, onToggle }: RequestPanelProps) {
   const { requests } = useRequests()
+  const { theme } = useTheme()
   const [searchQuery, setSearchQuery] = useState("")
   const [filterCategory, setFilterCategory] = useState("all")
   const [filterStatus, setFilterStatus] = useState("all")
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const logoSrc = mounted && theme === "light" ? "/logopvl2white.png" : "/logopvl2.png"
 
   const filteredRequests = requests.filter((request) => {
     const matchesSearch =
@@ -52,7 +61,7 @@ export default function RequestPanel({ isOpen, onToggle }: RequestPanelProps) {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Image
-                src="/logopvl2.png"
+                src={logoSrc}
                 alt="Logo"
                 width={32}
                 height={32}
@@ -140,12 +149,21 @@ export default function RequestPanel({ isOpen, onToggle }: RequestPanelProps) {
             className="md:hidden fixed left-0 right-0 bottom-0 top-[30%] z-[1000] bg-card dark:bg-[var(--surface)] rounded-t-3xl border-t border-border dark:border-border/70 flex flex-col shadow-2xl dark:shadow-2xl dark:shadow-black/40"
           >
             <div className="p-4 space-y-4">
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-center mb-2">
                 <div className="w-12 h-1 rounded-full bg-border dark:bg-border/50" />
               </div>
 
               <div className="flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-foreground dark:text-foreground/90">Заявки</h2>
+                <div className="flex items-center gap-3">
+                  <Image
+                    src={logoSrc}
+                    alt="Logo"
+                    width={28}
+                    height={28}
+                    className="h-7 w-auto"
+                  />
+                  <h2 className="text-lg font-semibold text-foreground dark:text-foreground/90">Заявки</h2>
+                </div>
                 <Button variant="ghost" size="icon" onClick={onToggle} className="hover:bg-muted dark:hover:bg-[var(--surface-hover)]">
                   <ChevronRight className="h-5 w-5" />
                 </Button>
