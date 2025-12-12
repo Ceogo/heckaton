@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, Send, MapPin, ImageIcon, Loader2 } from "lucide-react"
 import { Button } from "./ui/button"
@@ -232,7 +233,16 @@ export default function GeminiChat({ isOpen, onClose }: GeminiChatProps) {
             >
               {/* Header */}
               <div className="flex items-center justify-between p-4 border-b border-border dark:border-border/50">
-                <h2 className="text-xl font-semibold text-foreground">Подать заявку</h2>
+                <div className="flex items-center gap-3">
+                  <Image
+                    src="/logopvl3.png"
+                    alt="Logo"
+                    width={28}
+                    height={28}
+                    className="h-7 w-auto"
+                  />
+                  <h2 className="text-xl font-semibold text-foreground">Подать заявку</h2>
+                </div>
                 <Button variant="ghost" size="icon" onClick={handleClose}>
                   <X className="h-5 w-5" />
                 </Button>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight, Search } from "lucide-react"
 import { Button } from "./ui/button"
@@ -49,7 +50,16 @@ export default function RequestPanel({ isOpen, onToggle }: RequestPanelProps) {
       >
         <div className="p-4 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-foreground">Заявки</h2>
+            <div className="flex items-center gap-3">
+              <Image
+                src="/logopvl2.png"
+                alt="Logo"
+                width={32}
+                height={32}
+                className="h-8 w-auto"
+              />
+              <h2 className="text-xl font-semibold text-foreground">Заявки</h2>
+            </div>
             <Button variant="ghost" size="icon" onClick={onToggle}>
               <ChevronLeft className="h-5 w-5" />
             </Button>

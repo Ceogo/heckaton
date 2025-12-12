@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, type ReactNode } from "react"
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
@@ -78,9 +79,13 @@ export default function OnboardingFlow({ children }: OnboardingFlowProps) {
           >
             <Card className="p-8 border">
               <div className="flex flex-col items-center gap-6">
-                <div className="p-3 bg-primary/10 rounded-lg">
-                  <MapPin className="h-8 w-8 text-primary" />
-                </div>
+                <Image
+                  src="/logopvl3.png"
+                  alt="Logo"
+                  width={48}
+                  height={48}
+                  className="h-12 w-auto"
+                />
                 <div className="text-center space-y-2">
                   <h1 className="text-2xl font-semibold">Выберите город</h1>
                   <p className="text-muted-foreground">Система подачи заявок для КСК</p>
